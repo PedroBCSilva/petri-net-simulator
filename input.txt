@@ -1,0 +1,5 @@
+new_place A 0
+new_place B 10
+new_transition T1
+new_arc ARC1 A T1 arc_in
+new_arc ARC2 B T1 arc_out
