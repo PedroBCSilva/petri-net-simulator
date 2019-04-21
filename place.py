@@ -2,11 +2,13 @@ class Place:
     name = ''
     arcs = []
     marks = 0
+    entry = False
 
-    def __init__(self, name, marks):
+    def __init__(self, name, marks, entry):
         self.name = name
         self.marks = marks
-    
+        self.entry = entry
+
     def produce_mark(self):
         self.marks += 1
 

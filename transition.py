@@ -2,6 +2,7 @@ class Transition:
     name = ''
     arcs_in = []
     arcs_out = []
+    enabled = False
 
     def __init__(self, name):
         self.name = name
@@ -11,4 +12,6 @@ class Transition:
 
     def add_arc_out(self, arc):
         self.arcs_out.append(arc)
-    
+
+    def toggle_enablement(self):
+        self.enabled = not self.enabled
