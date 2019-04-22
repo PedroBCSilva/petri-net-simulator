@@ -27,7 +27,6 @@ class Output:
             self.cycle_row.append(row)
 
     def print(self):
-        column_names = []
         table = PrettyTable(['Ciclo'])
         i = 0
 

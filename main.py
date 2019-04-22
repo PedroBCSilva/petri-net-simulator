@@ -120,7 +120,7 @@ class PetriNet:
                 for i in range(len(self.transitions)):
                     if transition == self.transitions[i]:
                         self.transitions[i].toggle()
-                        return
+                        break
 
     def start_empty(self):
         empty = True
