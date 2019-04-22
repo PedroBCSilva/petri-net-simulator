@@ -16,7 +16,7 @@ class PetriNet:
         self.file_name = file_name
         self.init_data()
         # self.print_data()
-        self.process()
+        # self.process()
         output = Output(self.cycles, self.places, self.transitions)
         output.print()
 
@@ -25,19 +25,22 @@ class PetriNet:
         with open (file_name, 'rt') as file:
             for line in file:
                 if "new_place" in line:
-                    (text, name, marks) = line.split()
-                    self.places.append(Place(name, int(marks), False))
+                    (text, name, marks, is_start_text) = line.split()
+                    is_start = False
+                    if is_start_text == 'True':
+                        is_start = True
+                    else: 
+                        is_start = False
+                    self.places.append(Place(name, int(marks), is_start))
                     # TODO TIRAR O FALSE E COLOCAR SE É ENTRADA OU NÃO
                 elif "new_transition" in line:
                     (text, name) = line.split()
                     self.transitions.append(Transition(name))
                 elif "new_arc" in line:
-                    (text, name_arc, name_place, name_transition, arc_type) = line.split()
+                    (text, name_arc, name_place, name_transition, arc_type, cost) = line.split()
                     place = self.find_place_by_name(name_place)
                     transition = self.find_transition_by_name(name_transition)
-                    arc = Arc(name_arc, place, transition, 1)
-                    #TODO ADICIONAR PESO DO ARCO
-
+                    arc = Arc(name_arc, place, transition, int(cost))
                     if arc_type == 'arc_in':
                         place.add_arc(arc)
                         transition.add_arc_in(arc)
@@ -113,7 +116,7 @@ class PetriNet:
                 self.places[i].produce_mark(cost)
                 return
 
-    def toggle_transition(transition):
+    def toggle_transition(self, transition):
         for i in range(len(self.transitions)):
             if tplace == self.transitions[i]:
                 self.transitions[i].toggle()
