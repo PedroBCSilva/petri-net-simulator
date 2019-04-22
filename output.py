@@ -2,6 +2,7 @@ from prettytable import PrettyTable
 from cycle import Cycle
 from place import Place
 from transition import Transition
+from colorama import init, Fore, Style
 
 class Output:
     cycles = []
@@ -13,6 +14,7 @@ class Output:
         self.cycles = cycles
         self.places = places
         self.transitions = transitions
+        init()
 
     def prepare_rows(self):
         i = 0
@@ -23,23 +25,24 @@ class Output:
             for place in cycle.places:
                 row.append(str(place.marks))
             for transition in cycle.transitions:
-                row.append(str(transition.enabled))
+                if transition.is_enabled() == True:
+                    row.append("\033[92m" + str(transition.enabled) + Style.RESET_ALL)
+                else:
+                    row.append("\033[91m" + str(transition.enabled) + Style.RESET_ALL)
             self.cycle_row.append(row)
 
     def print(self):
-        table = PrettyTable(['Ciclo'])
+        table = PrettyTable(["\033[93m Ciclo" + Style.RESET_ALL])
         i = 0
 
         for column in self.places:
-            # i += 1
-            # name = "L" + str(i)
-            name = column.name
+            name = name = "\033[93m" + column.name  + Style.RESET_ALL
             table.add_column(name, "")
 
         i = 0
         for column in self.transitions:
             i += 1
-            name = "T" + str(i)
+            name = "\033[93m T" + str(i)  + Style.RESET_ALL
             table.add_column(name, "")
 
         self.prepare_rows()

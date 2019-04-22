@@ -16,7 +16,6 @@ class PetriNet:
     def __init__(self, file_name):
         self.file_name = file_name
         self.init_data()
-        # self.print_data()
         self.process()
         output = Output(self.cycles, self.places, self.transitions)
         output.print()
@@ -61,24 +60,6 @@ class PetriNet:
         for i in range(len(self.transitions)):
             if self.transitions[i].name == name:
                 return self.transitions[i]
-
-    # def print_data(self):
-    #     print("Places")
-    #     for place in self.places:
-    #         print(place.name, '-', place.marks)
-    #
-    #     print('=================')
-    #
-    #     print("Transitions")
-    #     for transition in self.transitions:
-    #         print(transition.name)
-    #
-    #     print('=================')
-    #
-    #     for arc in self.arcs:
-    #         print("arc:", arc.name)
-    #         print("place:", arc.place.name)
-    #         print("transition:", arc.transition.name)
 
     def get_next(self):
         for transition in self.transitions:
