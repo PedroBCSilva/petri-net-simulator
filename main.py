@@ -15,7 +15,7 @@ class PetriNet:
     def __init__(self, file_name):
         self.file_name = file_name
         self.init_data()
-        self.print_data()
+        # self.print_data()
         self.process()
         output = Output(self.cycles, self.places, self.transitions)
         output.print()
@@ -35,7 +35,8 @@ class PetriNet:
                     (text, name_arc, name_place, name_transition, arc_type) = line.split()
                     place = self.find_place_by_name(name_place)
                     transition = self.find_transition_by_name(name_transition)
-                    arc = Arc(name_arc, place, transition)
+                    arc = Arc(name_arc, place, transition, 1)
+                    #TODO ADICIONAR PESO DO ARCO
 
                     if arc_type == 'arc_in':
                         place.add_arc(arc)
@@ -44,6 +45,8 @@ class PetriNet:
                         transition.add_arc_out(arc)
 
                     self.arcs.append(arc)
+
+        self.cycles.append(Cycle(self.places, self.transitions))
 
     def find_place_by_name(self, name):
         for i in range(len(self.places)):
@@ -55,28 +58,79 @@ class PetriNet:
             if self.transitions[i].name == name:
                 return self.transitions[i]
 
-    def print_data(self):
-        print("Places")
-        for place in self.places:
-            print(place.name, '-', place.marks)
-
-        print('=================')
-
-        print("Transitions")
-        for transition in self.transitions:
-            print(transition.name)
-
-        print('=================')
-
-        for arc in self.arcs:
-            print("arc:", arc.name)
-            print("place:", arc.place.name)
-            print("transition:", arc.transition.name)
+    # def print_data(self):
+    #     print("Places")
+    #     for place in self.places:
+    #         print(place.name, '-', place.marks)
+    #
+    #     print('=================')
+    #
+    #     print("Transitions")
+    #     for transition in self.transitions:
+    #         print(transition.name)
+    #
+    #     print('=================')
+    #
+    #     for arc in self.arcs:
+    #         print("arc:", arc.name)
+    #         print("place:", arc.place.name)
+    #         print("transition:", arc.transition.name)
 
     def process(self):
-        #while(not entrada empty && not transaction enabled)
-        self.cycles.append(Cycle(self.places, self.transitions))
+        # while(not entrada empty || transition_enabled() == True)
+            while(transition_enabled() == True):
+                transition = get_next()
+                for arc in transition.arcs_in:
+                    tplace = arc.place
+                    subtract_marks(tplace, arc.cost)
+                for arc in transition.arcs_out:
+                    tplace = arc.place
+                    add_marks(tplace, arc.cost)
+                toggle_transition(transition)
+            evaluate()
+            self.cycles.append(Cycle(self.places, self.transitions))
 
+    def get_next(self):
+        for transition in self.transitions:
+            if transition.enabled() == True:
+                return transition
+
+    def transition_enabled(self):
+        for transition in self.transitions:
+            if transition.enabled() == True:
+                return True
+        return False
+
+    def subtract_marks(self, tplace, cost):
+        for i in range(len(self.places)):
+            if tplace == self.places[i]:
+                self.places[i].consume_mark(cost)
+                return
+
+    def add_marks(self, tplace, cost):
+        for i in range(len(self.places)):
+            if tplace == self.places[i]:
+                self.places[i].produce_mark(cost)
+                return
+
+    def toggle_transition(transition):
+        for i in range(len(self.transitions)):
+            if tplace == self.transitions[i]:
+                self.transitions[i].toggle()
+                return
+
+    def evaluate(self):
+        for transition in self.transitions:
+            enable = True
+            for arc in transition.arcs_in:
+                if arc.place.marks < arc.cost:
+                    enable = False
+                    break
+            if enable == True:
+                for i in range(len(self.transitions)):
+                    if transition == self.transitions[i]:
+                        self.transitions[i].toggle()
+                        return
 
 if __name__ == "__main__":
     parser = OptionParser()

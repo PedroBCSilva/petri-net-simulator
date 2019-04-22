@@ -32,8 +32,9 @@ class Output:
         i = 0
 
         for column in self.places:
-            i += 1
-            name = "L" + str(i)
+            # i += 1
+            # name = "L" + str(i)
+            name = column.name
             table.add_column(name, "")
 
         i = 0

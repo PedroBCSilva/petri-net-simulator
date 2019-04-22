@@ -13,5 +13,8 @@ class Transition:
     def add_arc_out(self, arc):
         self.arcs_out.append(arc)
 
-    def toggle_enablement(self):
+    def toggle(self):
         self.enabled = not self.enabled
+
+    def is_enabled(self):
+        return self.enabled

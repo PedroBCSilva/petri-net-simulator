@@ -9,11 +9,11 @@ class Place:
         self.marks = marks
         self.entry = entry
 
-    def produce_mark(self):
-        self.marks += 1
+    def produce_mark(self, cost):
+        self.marks += cost
 
-    def consume_mark(self):
-        self.marks -= 1
+    def consume_mark(self, cost):
+        self.marks -= cost
 
     def add_arc(self, arc):
         self.arcs.append(arc)
