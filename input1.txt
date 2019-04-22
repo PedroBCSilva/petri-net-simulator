@@ -1,0 +1,26 @@
+new_place L1 2 True
+new_place L2 0 False
+new_place L3 2 False
+new_place L4 0 False
+new_place L5 5 False
+new_place L6 0 False
+new_place L7 0 False
+new_place L8 0 False
+new_transition T1
+new_transition T2
+new_transition T3
+new_transition T4
+new_arc ARC1 L1 T1 arc_in 1
+new_arc ARC2 L2 T1 arc_out 1
+new_arc ARC3 L2 T2 arc_in 1
+new_arc ARC4 L3 T2 arc_in 2
+new_arc ARC5 L5 T2 arc_in 3
+new_arc ARC6 L4 T2 arc_out 1
+new_arc ARC7 L4 T3 arc_in 1
+new_arc ARC8 L3 T3 arc_out 2
+new_arc ARC9 L6 T3 arc_out 1
+new_arc ARC10 L7 T3 arc_out 1
+new_arc ARC11 L6 T4 arc_in 1
+new_arc ARC12 L7 T4 arc_in 1
+new_arc ARC13 L5 T4 arc_out 3
+new_arc ARC14 L8 T4 arc_out 1
