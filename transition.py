@@ -6,6 +6,8 @@ class Transition:
 
     def __init__(self, name):
         self.name = name
+        self.arcs_in = []
+        self.arcs_out = []
 
     def add_arc_in(self, arc):
         self.arcs_in.append(arc)

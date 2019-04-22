@@ -8,6 +8,7 @@ class Place:
         self.name = name
         self.marks = marks
         self.entry = entry
+        self.arcs = []
 
     def produce_mark(self, cost):
         self.marks += cost

@@ -30,10 +30,12 @@ class PetriNet:
                     is_start = False
                     if is_start_text == 'True':
                         is_start = True
-                        self.start.append(Place(name, int(marks), is_start))
                     else:
                         is_start = False
-                    self.places.append(Place(name, int(marks), is_start))
+                    place = Place(name, int(marks), is_start)
+                    self.places.append(place)
+                    if place.entry:
+                        self.start.append(place)                  
                 elif "new_transition" in line:
                     (text, name) = line.split()
                     self.transitions.append(Transition(name))
@@ -146,8 +148,7 @@ class PetriNet:
 
 if __name__ == "__main__":
     parser = OptionParser()
-    parser.add_option("--file", dest="filename", help="Path of file", default="input1.txt",
-                     type="string")
+    parser.add_option("--file", dest="filename", help="Path of file", default="input1.txt", type="string")
 
     (options, args) = parser.parse_args()
 
