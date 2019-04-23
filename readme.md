@@ -1,5 +1,6 @@
 # PetriNet
 Group: Gabriel Colling, Pedro Bohlmann Cascaes Silva, Jaqueline Dahmer Steffenon
+
 How to run:
 ```
     python3 main.py
