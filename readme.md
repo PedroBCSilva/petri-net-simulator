@@ -31,7 +31,7 @@ The default file to load data from is input.txt but it can be changed by sending
     new_arc ARC2 B T1 arc_out 1
 ```
 The idea behind arc_type is to set if the marks inside the place are to be consumed a result from a transition
-# 
-## Dependencies
+
+# Dependencies
 * PrettyTable 7
 * colorama 0.4.1
